@@ -1,0 +1,58 @@
+<#import "blocks/template.ftlh" as t>
+<@t.template user>
+    <h1 style="text-align: center">Личный кабинет</h1>
+    <hr>
+    <br>
+    <div style="text-align: center">
+        <img src="/static/images/avatar.png"
+             style="border:2px solid black; border-radius: 20px" height="120">
+        <br>
+        <br>
+        <h2>${user.name}</h2>
+        <br>
+        Электронная почта: <b>${user.email}</b>
+        <br>
+        Номер телефона: <b>${user.phoneNumber}</b>
+        <br>
+        <br>
+
+
+    </div>
+    <section id="main-content" class="container mt-4">
+    <div class="row">
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+
+
+        <#if user.isAdmin()>
+            <a class="btn btn-dark mb-3" style="text-align: center; width: 100%"
+               href="/admin">
+                Панель администратора
+            </a><br>
+        </#if>
+               <#if !user.isAdmin()>
+
+        <a class="btn btn-dark mb-3" style="text-align: center; width: 100%"
+           href="/my/products">
+            Товары в корзине
+        </a>
+               </#if>
+
+        <form action="/logout" method="post">
+            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+            <button type="submit" style="text-align: center; width: 100%" class="btn btn-danger mb-2">
+                Выйти из аккаунта
+            </button>
+        </form>
+
+    </div>
+
+    <div class="col-md-4">
+    </div>
+
+
+    </div>
+    </section>
+
+</@t.template>
